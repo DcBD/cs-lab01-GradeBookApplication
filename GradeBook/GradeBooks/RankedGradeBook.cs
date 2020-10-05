@@ -40,9 +40,16 @@ namespace GradeBook.GradeBooks
 
         public override void CalculateStatistics()
         {
-            if (Students.Count < 5) { Console.WriteLine("Ranked grading requires at least 5 students."); return; }
+            if (Students.Count < 5) { DisplayRankedGradingNotEnoughStudents(); return; }
 
             base.CalculateStatistics();
+        }
+
+        public override void CalculateStudentStatistics(string name)
+        {
+            if (Students.Count < 5) { DisplayRankedGradingNotEnoughStudents(); return; }
+
+            base.CalculateStudentStatistics(name);
         }
 
         public List<double> GetBetterGrades(double averageGrade, List<double> grades)
@@ -69,5 +76,10 @@ namespace GradeBook.GradeBooks
             return grades;
         }
 
+
+        private void DisplayRankedGradingNotEnoughStudents(int minStudents = 5)
+        {
+            Console.WriteLine("Ranked grading requires at least {0} students.", minStudents);
+        }
     }
 }
